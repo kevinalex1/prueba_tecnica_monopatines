@@ -55,16 +55,6 @@ Parametro a ingresar (1 o 2):
 
 modelo: 1 - XGBoost, 2 - LightGBM (por defecto estara 2)
 
-GET /health
-Verifica que la API está funcionando.
-
-Ejemplo de respuesta:
-
-{
-"status": "ok",
-"message": "API funcionando"
-}
-
 POST /predict
 Recibe datos de entrada y devuelve la predicción de alquileres.
 
