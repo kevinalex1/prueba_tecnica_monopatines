@@ -66,12 +66,6 @@ def predict_random(modelo: int = 2):
         "prediccion_total_alquileres": resultado["prediccion_total_alquileres"]
     }
 
-
-
-@app.get("/health")
-def health():
-    return {"status": "ok", "message": "API funcionando"}
-
 @app.post("/predict")
 def predict(data: PrediccionEntrada):
     if data.modelo not in MODELOS:
