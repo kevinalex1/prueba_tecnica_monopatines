@@ -13,8 +13,7 @@ def predecir(data: dict, modelo_numero: int):
 
     return {
         "modelo_usado": (
-            "Random Forest" if modelo_numero == 1 else
-            "XGBoost" if modelo_numero == 2 else
+            "XGBoost" if modelo_numero == 1 else
             "LightGBM"
         ),
         "entrada": data,

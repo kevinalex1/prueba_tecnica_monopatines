@@ -5,14 +5,13 @@ from predictor import predecir
 
 app = FastAPI(
     title="API de prediccion de alquileres de monopatines",
-    description="API para predecir el total de monopatines alquilados por hora usando los 3 modelos entrenados",
+    description="API para predecir el total de monopatines alquilados por hora usando los modelos XGBoost y LightGBM",
     version="1.0.0"
 )
 
 MODELOS = {
-    1: "RANDOM FOREST",
-    2: "XGBOOST",
-    3: "LIGHTGBM"
+    1: "XGBOOST",
+    2: "LIGHTGBM"
 }
 
 class PrediccionEntrada(BaseModel):
@@ -28,21 +27,17 @@ class PrediccionEntrada(BaseModel):
     sensacion_termica: float
     humedad: float
     velocidad_viento: float
-    modelo: Optional[int] = 1  # por defecto usa Random Forest
-
+    modelo: Optional[int] = 1 
 
 @app.get("/health")
 def health():
     return {"status": "ok", "message": "API funcionando"}
 
-
 @app.post("/predict")
 def predict(data: PrediccionEntrada):
-    # entrada para elegir el modelo
     if data.modelo not in MODELOS:
-        raise HTTPException(status_code=400, detail="Modelo. Opciones: 1=Random Forest, 2=XGBoost, 3=LightGBM")
+        raise HTTPException(status_code=400, detail="modelo no disponible. Opciones: 1=XGBoost, 2=LightGBM")
 
-    # Convertimos el input o entrada a diccionario para el modelo
     entrada_dict = data.dict()
     modelo_num = entrada_dict.pop("modelo")
 
@@ -56,4 +51,3 @@ def predict(data: PrediccionEntrada):
         "entrada": resultado["entrada"],
         "prediccion_total_alquileres": resultado["prediccion_total_alquileres"]
     }
-
